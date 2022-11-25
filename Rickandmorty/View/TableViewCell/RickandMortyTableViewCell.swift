@@ -6,17 +6,57 @@
 //
 
 import UIKit
-
-class RickandMortyTableViewCell: UITableViewCell {
+import SDWebImage
+final class RickandMortyTableViewCell: UITableViewCell {
     static let identifier = "RickandMortyTableViewCell"
-
+     let rickonImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.layer.masksToBounds = true
+        imageView.layer.cornerRadius = 10
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+     let rickonNameLabel: UILabel = {
+        let label = UILabel()
+         label.font = .systemFont(ofSize: 16, weight: .semibold)
+         label.numberOfLines = 0
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        addSubview(rickonImageView)
+        addSubview(rickonNameLabel)
+    }
+    func configure(with model: RickanMortyModelResult) {
+        self.rickonImageView.sd_setImage(with: URL(string: model.image ?? ""))
+        self.rickonNameLabel.text = model.name ?? ""
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-
+}
+    //MARK: - RickandMortyTableViewCell Constraints
+extension RickandMortyTableViewCell {
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        NSLayoutConstraint.activate([
+        rickonImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 20),
+        rickonImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 20),
+        rickonImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -20),
+        rickonImageView.heightAnchor.constraint(equalToConstant: 70),
+        rickonImageView.widthAnchor.constraint(equalToConstant: 70),
+        
+        rickonNameLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 10),
+        rickonNameLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
+        rickonNameLabel.leadingAnchor.constraint(equalTo: rickonImageView.trailingAnchor, constant: 20),
+        rickonNameLabel.widthAnchor.constraint(equalToConstant: 200),
+        
+        ])
+    }
 }

@@ -15,6 +15,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let window = UIWindow(windowScene: windowScene)
         let viewController = RickandmortyViewController()
         let navigationController = UINavigationController(rootViewController: viewController)
+        viewController.title = "Characters"
+        viewController.view.backgroundColor = .systemBackground
+        navigationController.navigationBar.prefersLargeTitles = true
         window.rootViewController = navigationController
         self.window = window
         window.makeKeyAndVisible()
