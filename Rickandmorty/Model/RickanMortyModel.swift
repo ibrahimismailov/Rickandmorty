@@ -92,8 +92,6 @@ struct CharacterViewModel{
     var image : String {
         return self.result.image ?? ""
     }
-  
-  
+
     
 }
-

@@ -11,6 +11,7 @@ protocol DetailViewControllerViewModelProtocol {
     var view: DetailViewControllerInterface? { get set }
     func viewDidLoad()
     func configureViews(with: RickanMortyModelResult )
+   
 }
 final class DetailViewControllerViewModel {
    weak var view: DetailViewControllerInterface?
@@ -18,12 +19,12 @@ final class DetailViewControllerViewModel {
 }
 
 extension DetailViewControllerViewModel: DetailViewControllerViewModelProtocol {
-
     func viewDidLoad() {
-        
         view?.addSubViews()
     }
+    
     func configureViews(with: RickanMortyModelResult) {
         view?.configureViews(with: model)
     }
+    
     }

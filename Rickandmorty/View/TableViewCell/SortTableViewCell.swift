@@ -6,7 +6,7 @@
 //
 
 import UIKit
-class SortTableViewCell: UITableViewCell {
+final class SortTableViewCell: UITableViewCell {
     var isChecked: Bool = false
 static let identifier = "SortTableViewCell"
     let texttLabel: UILabel = {
