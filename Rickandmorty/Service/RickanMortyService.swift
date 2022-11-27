@@ -17,7 +17,7 @@ enum RickanMortyServiceEndPoints: String {
 protocol RickanMortyServiceProtocol {
     func fetchCharacters(page: Int,completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void)
     func searchCharacterByName(page: Int, searchText: String, completion : @escaping (Result<[RickanMortyModelResult] , ErrorMessage>)->())
-   func getFilteredCharacter(gender: String,status: String, completion: @escaping (Result<[RickanMortyModelResult],Error>) -> Void)
+   func getFilteredCharacter(gender: String,status: String, completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void)
 }
     
 class RickanMortyService: RickanMortyServiceProtocol {
@@ -84,9 +84,9 @@ class RickanMortyService: RickanMortyServiceProtocol {
     }
         //MARK: - getFilteredCharacters
     
-    func getFilteredCharacter(gender: String,status: String, completion: @escaping (Result<[RickanMortyModelResult],Error>) -> Void) {
+    func getFilteredCharacter(gender: String,status: String, completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void) {
            
-           guard let url =  URL(string: "https://rickandmortyapi.com/api/character/?status=\(status)&gender=\(gender)")
+        guard let url =  URL(string: "\(RickanMortyServiceEndPoints.characterPath())?status=\(status)&gender=\(gender)")
                    else {
                    return
            }
@@ -95,8 +95,7 @@ class RickanMortyService: RickanMortyServiceProtocol {
                URLSession.shared.dataTask(with: request){
                (data , response, error)  in
                guard let data = data, error == nil else {
-               print(error?.localizedDescription ?? "No data")
-               completion(.failure(error?.localizedDescription as! Error))
+                   completion(.failure(.invalidData))
                return
                }
                guard let response = response else {
@@ -109,8 +108,8 @@ class RickanMortyService: RickanMortyServiceProtocol {
                      let postBody = try JSONDecoder().decode(RickanMortyModel.self, from: data)
                      print(postBody)
                      completion(.success(postBody.results))
-                 }catch let error{
-                     print(error.localizedDescription)
+                 }catch {
+                     completion(.failure(.unableToComplete))
                  }
              print(responseJSON)
                          }
