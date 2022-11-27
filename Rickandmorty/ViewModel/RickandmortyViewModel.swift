@@ -77,10 +77,10 @@ final class RickandmortyViewModel {
         }
         
     }
-    
 }
 extension RickandmortyViewModel: RickandmortyViewModelProtocol {
     func viewDidLoad() {
+        
         view?.prepareTableView()
         view?.prepareSearchBar()
         fetchCharacters()
@@ -113,9 +113,6 @@ extension RickandmortyViewModel: RickandmortyViewModelProtocol {
         callCharacterFilter(gender: gender, status: status)
         popUp.removeFromSuperview()
     }
-
- 
-    
     
 }
 

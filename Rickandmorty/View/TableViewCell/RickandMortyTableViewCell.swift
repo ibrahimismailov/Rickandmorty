@@ -42,7 +42,7 @@ final class RickandMortyTableViewCell: UITableViewCell {
     func configure(with model: RickanMortyModelResult) {
         self.rickonImageView.sd_setImage(with: URL(string: model.image ?? ""))
         self.rickonNameLabel.text = model.name ?? ""
-        self.rickonStatusLabel.text = model.status?.rawValue
+        self.rickonStatusLabel.text = model.status ?? ""
     }
     
     required init?(coder: NSCoder) {

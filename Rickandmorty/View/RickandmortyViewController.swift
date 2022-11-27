@@ -125,7 +125,7 @@ extension RickandmortyViewController: RickanMortyViewInterface {
          style: .done,
          target: self,
          action: #selector(tappedFilter))
-        rightBarButton.tintColor = .black
+        rightBarButton.tintColor = UIColor(named: "filter")
         navigationItem.rightBarButtonItem = rightBarButton
     }
     

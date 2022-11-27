@@ -85,7 +85,7 @@
 			children = (
 				150DE5B8292FCCF200C15996 /* Utility */,
 				15021B5B292D560C00B490CF /* App */,
-				15021B5D292D564400B490CF /* Info */,
+				15021B5D292D564400B490CF /* Resources */,
 				15021B64292D63DC00B490CF /* Service */,
 				150DE58A292E569B00C15996 /* Model */,
 				15021B63292D63CA00B490CF /* ViewModel */,
@@ -115,14 +115,14 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		15021B5D292D564400B490CF /* Info */ = {
+		15021B5D292D564400B490CF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				15021B50292D554C00B490CF /* Assets.xcassets */,
 				15021B52292D554C00B490CF /* LaunchScreen.storyboard */,
 				15021B55292D554C00B490CF /* Info.plist */,
 			);
-			path = Info;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		15021B5E292D614000B490CF /* TableViewCell */ = {
@@ -462,7 +462,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 32QZH4J5KJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Rickandmorty/Info/Info.plist;
+				INFOPLIST_FILE = Rickandmorty/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
@@ -490,7 +490,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 32QZH4J5KJ;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Rickandmorty/Info/Info.plist;
+				INFOPLIST_FILE = Rickandmorty/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;

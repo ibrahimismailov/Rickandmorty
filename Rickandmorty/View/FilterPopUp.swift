@@ -29,13 +29,13 @@ class FilterPopUp: UIView  {
     }()
     private let tableView: UITableView = {
         let tableView = UITableView()
-       // tableView.separatorStyle = .none
         tableView.layer.cornerRadius = 10
         tableView.register(
         SortTableViewCell.self,
         forCellReuseIdentifier: SortTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = 60
+        tableView.backgroundColor = .systemGray5
         return tableView
     }()
     
@@ -105,6 +105,7 @@ extension FilterPopUp: UITableViewDelegate, UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 3
     }
+    
     func tableView(_ tableView: UITableView,
        numberOfRowsInSection section: Int
     ) -> Int {
@@ -132,7 +133,7 @@ extension FilterPopUp: UITableViewDelegate, UITableViewDataSource {
         default:
             break
         }
-        cell.backgroundColor =  .systemGray6
+        cell.backgroundColor =  .systemGray4
         return cell
     }
     func tableView(_ tableView: UITableView,

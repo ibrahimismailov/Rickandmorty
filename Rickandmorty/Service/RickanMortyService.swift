@@ -5,7 +5,6 @@
 //  Created by Abraam on 23.11.2022.
 
 import Foundation
-import Alamofire
 enum RickanMortyServiceEndPoints: String {
     case BASE_URL = "https://rickandmortyapi.com/api/"
     case PATH = "character/"
@@ -46,7 +45,9 @@ class RickanMortyService: RickanMortyServiceProtocol {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let characters = try decoder.decode(RickanMortyModel.self, from: data)
-                completion(.success(characters.results))
+                if let character = characters.results {
+                    completion(.success(character))
+                }
             }catch{
                 completion(.failure(.invalidData))
             }
@@ -75,7 +76,9 @@ class RickanMortyService: RickanMortyServiceProtocol {
                 let decoder = JSONDecoder()
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 let characters = try decoder.decode(RickanMortyModel.self, from: data)
-                completion(.success(characters.results))
+                if let character = characters.results {
+                    completion(.success(character))
+                }
             }catch{
                 completion(.failure(.invalidData))
             }
@@ -106,8 +109,9 @@ class RickanMortyService: RickanMortyServiceProtocol {
              if let responseJSON = responseJSON as? [String: Any] {
                  do {
                      let postBody = try JSONDecoder().decode(RickanMortyModel.self, from: data)
-                     print(postBody)
-                     completion(.success(postBody.results))
+                     if let character = postBody.results {
+                         completion(.success(character))
+                     }
                  }catch {
                      completion(.failure(.unableToComplete))
                  }
