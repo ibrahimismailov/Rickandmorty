@@ -25,9 +25,8 @@ class RickandmortyViewController: UIViewController {
     private var statusText: String = ""
     
     private let RickontableView: UITableView = {
-        let table  = UITableView(
-            frame: .zero,
-            style: .insetGrouped)
+        let table  = UITableView(frame: .zero, style: .insetGrouped)
+        
         return table
     }()
     
@@ -90,6 +89,9 @@ extension RickandmortyViewController: UITableViewDelegate,
         animated: true)
         viewModel.didSelectItemAt(at: indexPath)
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 250
+    }
 }
 
     //MARK: - UISearchBarDelegate
@@ -130,20 +132,20 @@ extension RickandmortyViewController: RickanMortyViewInterface {
     }
     
         @objc private func tappedFilter() {
-            view.addSubview(viewModel.popUp)
-            viewModel.popUp.applyButton.addTarget(
-        self,
+            self.searchBar.searchBar.isHidden = true
+        view.addSubview(viewModel.popUp)
+        viewModel.popUp.applyButton.addTarget(self,
         action: #selector(tappedApplyButton),
         for: .touchUpInside)
         }
-    
     @objc  func tappedApplyButton() {
-       
+        self.searchBar.searchBar.isHidden = false
+        guard let name = viewModel.popUp.searchController.searchBar.text else {return}
         let gender = viewModel.popUp.selectedGender
         let status = viewModel.popUp.selectedStatus
-        UserDefaults.standard.set(gender, forKey: "gender")
-        UserDefaults.standard.set(status, forKey: "status")
-        viewModel.applyButtonTapped(gender: gender, status: status)
+        let spacies = viewModel.popUp.selectedSpacies
+        viewModel.callCharacterWithFilter(name: name, gender: gender, status: status, species: spacies)
+        viewModel.popUp.removeFromSuperview()
         
         }
     

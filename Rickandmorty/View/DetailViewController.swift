@@ -67,6 +67,9 @@ extension DetailViewController {
             genderRickan.leadingAnchor.constraint(
             equalTo: imageRickan.leadingAnchor,
             constant: 20),
+            genderRickan.trailingAnchor.constraint(
+            equalTo: imageRickan.trailingAnchor,
+            constant: -20),
             
             
             specRickan.topAnchor.constraint(
@@ -75,6 +78,9 @@ extension DetailViewController {
             specRickan.leadingAnchor.constraint(
             equalTo: imageRickan.leadingAnchor,
             constant: 20),
+            specRickan.trailingAnchor.constraint(
+            equalTo: imageRickan.trailingAnchor,
+            constant: -20),
             
             originRickan.topAnchor.constraint(
             equalTo: specRickan.bottomAnchor,
@@ -82,6 +88,9 @@ extension DetailViewController {
             originRickan.leadingAnchor.constraint(
             equalTo: imageRickan.leadingAnchor,
             constant: 20),
+            originRickan.trailingAnchor.constraint(
+            equalTo: imageRickan.trailingAnchor,
+            constant: -20),
             
             statusRickan.topAnchor.constraint(
             equalTo: originRickan.bottomAnchor,
@@ -89,6 +98,9 @@ extension DetailViewController {
             statusRickan.leadingAnchor.constraint(
             equalTo: imageRickan.leadingAnchor,
             constant: 20),
+            statusRickan.trailingAnchor.constraint(
+            equalTo: imageRickan.trailingAnchor,
+            constant: -20),
             
         ])
     }
@@ -111,8 +123,14 @@ extension DetailViewController: DetailViewControllerInterface {
         genderRickan.text = "Gender : \(model.gender ?? "")"
         statusRickan.text = "Status : \(model.status ?? "")"
         specRickan.text = "Species : \(model.species ?? "")"
-        originRickan.text = "Type : \(model.type ?? "Type")"
+        originRickan.text = "Origin : \(model.location.name ?? "Type")"
     }
     
     
 }
+
+
+
+
+
+

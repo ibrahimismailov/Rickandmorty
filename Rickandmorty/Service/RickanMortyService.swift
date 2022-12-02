@@ -16,10 +16,14 @@ enum RickanMortyServiceEndPoints: String {
 protocol RickanMortyServiceProtocol {
     func fetchCharacters(page: Int,completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void)
     func searchCharacterByName(page: Int, searchText: String, completion : @escaping (Result<[RickanMortyModelResult] , ErrorMessage>)->())
-   func getFilteredCharacter(gender: String,status: String, completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void)
+//   func getFilteredCharacter(gender: String,status: String, completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void)
+    func getFilteredCharacter(name: String, gender: String,status: String,species: String, completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void)
+    
 }
     
 class RickanMortyService: RickanMortyServiceProtocol {
+
+    
     static let shared = RickanMortyService()
    
     
@@ -87,9 +91,9 @@ class RickanMortyService: RickanMortyServiceProtocol {
     }
         //MARK: - getFilteredCharacters
     
-    func getFilteredCharacter(gender: String,status: String, completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void) {
+    func getFilteredCharacter(name: String, gender: String,status: String,species: String, completion: @escaping (Result<[RickanMortyModelResult],ErrorMessage>) -> Void) {
            
-        guard let url =  URL(string: "\(RickanMortyServiceEndPoints.characterPath())?status=\(status)&gender=\(gender)")
+        guard let url =  URL(string: "\(RickanMortyServiceEndPoints.characterPath())?name=\(name)&status=\(status)&gender=\(gender)&species\(species)")
                    else {
                    return
            }

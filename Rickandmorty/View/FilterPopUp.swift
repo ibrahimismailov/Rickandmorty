@@ -7,14 +7,18 @@
 
 import UIKit
 class FilterPopUp: UIView  {
+    let searchController = UISearchController(searchResultsController: nil)
    private lazy var genderSection = "Gender"
-    private lazy var statusSection = "Status"
+   private lazy var statusSection = "Status"
+   private lazy var spaciesSection = "Spacies"
 
     private lazy var genderText = ["male","female","genderless","unknown"]
     private lazy var statusText = ["alive", "dead","unknown"]
+    private lazy var spaciesText = ["alien", "human","unknown"]
     
-      var selectedGender = ""
-      var selectedStatus = ""
+    var selectedGender = ""
+    var selectedStatus = ""
+    var selectedSpacies = ""
     
     let conteiner: UIView = {
         let view = UIView()
@@ -24,7 +28,6 @@ class FilterPopUp: UIView  {
         view.layer.shadowOffset = CGSize(width: 0.2, height: 0.3)
         view.layer.shadowRadius = 1
         view.layer.shadowOpacity = 1
-        view.backgroundColor = .systemGray6
         return view
     }()
     private let tableView: UITableView = {
@@ -35,7 +38,7 @@ class FilterPopUp: UIView  {
         forCellReuseIdentifier: SortTableViewCell.identifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.rowHeight = 60
-        tableView.backgroundColor = .systemGray5
+        tableView.separatorStyle = .none
         return tableView
     }()
     
@@ -53,11 +56,14 @@ class FilterPopUp: UIView  {
         super.init(frame: frame)
         self.frame = UIScreen.main.bounds
         addSubview(conteiner)
+        
         conteiner.addSubview(applyButton)
         conteiner.addSubview(tableView)
         tableView.delegate  = self
         tableView.dataSource = self
         tableView.allowsMultipleSelectionDuringEditing = false
+        self.tableView.tableHeaderView = searchController.searchBar
+
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -68,14 +74,14 @@ class FilterPopUp: UIView  {
             equalTo: self.centerYAnchor),
             conteiner.widthAnchor.constraint(
             equalTo: self.widthAnchor,
-            multiplier: 0.9),
+            multiplier: 1.0),
             conteiner.heightAnchor.constraint(
             equalTo: self.heightAnchor,
-            multiplier: 0.7),
+            multiplier: 0.76),
            
             tableView.topAnchor.constraint(
             equalTo: conteiner.topAnchor,
-            constant: 0),
+            constant: 40),
             tableView.leadingAnchor.constraint(
             equalTo: conteiner.leadingAnchor),
             tableView.trailingAnchor.constraint(
@@ -112,6 +118,7 @@ extension FilterPopUp: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case 0: return genderText.count
         case 1: return statusText.count
+        case 2: return spaciesText.count
         default:
             break
         }
@@ -130,10 +137,10 @@ extension FilterPopUp: UITableViewDelegate, UITableViewDataSource {
         switch indexPath.section {
         case 0: cell.texttLabel.text = genderText[indexPath.row]
         case 1: cell.texttLabel.text = statusText[indexPath.row]
+        case 2: cell.texttLabel.text = spaciesText[indexPath.row]
         default:
             break
         }
-        cell.backgroundColor =  .systemGray4
         return cell
     }
     func tableView(_ tableView: UITableView,
@@ -143,12 +150,13 @@ extension FilterPopUp: UITableViewDelegate, UITableViewDataSource {
         switch section {
         case 0: return genderSection
         case 1: return statusSection
+        case 2: return spaciesSection
         default:
             break
         }
-         return ""
-        
+        return ""
     }
+  
     func tableView(_ tableView: UITableView,
        didSelectRowAt indexPath: IndexPath
     ) {
@@ -157,20 +165,22 @@ extension FilterPopUp: UITableViewDelegate, UITableViewDataSource {
         if tableView.cellForRow(
         at: indexPath)?.accessoryType == .checkmark
         {
+     
         tableView.cellForRow(
         at: indexPath)?.accessoryType = .none
         } else {
-        switch indexPath.section {
-        case 0: self.selectedGender = genderText[indexPath.row]
-        case 1: self.selectedStatus = statusText[indexPath.row]
-        default: break
-        }
-            
             tableView.cellForRow(
             at: indexPath)?.accessoryType = .checkmark
+            switch indexPath.section {
+            case 0: self.selectedGender = genderText[indexPath.row]
+            case 1: self.selectedStatus = statusText[indexPath.row]
+            case 2: self.selectedSpacies = spaciesText[indexPath.row]
+            default: break
+            }
         }
       
     }
+   
    
 }
 
