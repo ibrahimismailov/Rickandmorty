@@ -25,17 +25,32 @@ final class RickAndMortyViewModelTests: XCTestCase {
     }
 
     func test_tableView_prepared_on_viewDidload() throws {
-
+        XCTAssertFalse(view.tableViewPrepared)
+        XCTAssertFalse(view.searchBarPrepared)
         viewModel.viewDidLoad()
-        
         XCTAssertTrue(view.tableViewPrepared)
     }
     
     func test_searchBar_prepared_on_viewDidload() throws {
-        
+        XCTAssertFalse(view.searchBarPrepared)
+        XCTAssertFalse(view.tableViewPrepared)
         viewModel.viewDidLoad()
-        
         XCTAssertTrue(view.searchBarPrepared)
+    }
+    
+    func test_fetchedCharactersAreCalledOn_viewDidload()  {
+        XCTAssertFalse(service.fetchCharactersAreCalled)
+        viewModel.viewDidLoad()
+        XCTAssertTrue(service.fetchCharactersAreCalled)
+    }
+    
+    func test_sampleCharactersAreRecieveon_viewDidload()  {
+        XCTAssertNotEqual(viewModel.model, service.sampleCharacters)
+        viewModel.viewDidLoad()
+        service.deliveredQues.sync {
+            XCTAssertEqual(self.viewModel.model, self.service.sampleCharacters)
+        }
+       
     }
 
 }
