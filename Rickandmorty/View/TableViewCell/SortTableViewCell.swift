@@ -11,7 +11,7 @@ final class SortTableViewCell: UITableViewCell {
 static let identifier = "SortTableViewCell"
     let texttLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .regular)
+        label.font = .systemFont(ofSize: 18, weight: .regular)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -22,7 +22,7 @@ static let identifier = "SortTableViewCell"
     override func layoutSubviews() {
         super.layoutSubviews()
         NSLayoutConstraint.activate([
-            texttLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 22),
+            texttLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 0),
             texttLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
         ])
     }

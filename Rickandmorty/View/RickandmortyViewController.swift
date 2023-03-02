@@ -132,12 +132,15 @@ extension RickandmortyViewController: RickanMortyViewInterface {
     }
     
         @objc private func tappedFilter() {
-            self.searchBar.searchBar.isHidden = true
         view.addSubview(viewModel.popUp)
+        viewModel.popUp.backgroundColor = .black.withAlphaComponent(0.6)
+        viewModel.popUp.searchController.searchBar.isHidden = true
+        self.searchBar.searchBar.isHidden = true
         viewModel.popUp.applyButton.addTarget(self,
         action: #selector(tappedApplyButton),
         for: .touchUpInside)
         }
+    
     @objc  func tappedApplyButton() {
         self.searchBar.searchBar.isHidden = false
         guard let name = viewModel.popUp.searchController.searchBar.text else {return}

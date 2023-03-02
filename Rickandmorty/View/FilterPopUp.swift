@@ -156,6 +156,17 @@ extension FilterPopUp: UITableViewDelegate, UITableViewDataSource {
         }
         return ""
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        cell.transform = CGAffineTransform(scaleX: cell.contentView.frame.width, y: 0)
+        UIView.animate(withDuration: 0.5, delay: 0.09 *  Double(indexPath.row),options: .curveEaseInOut){
+            cell.transform = CGAffineTransform(translationX: cell.contentView.frame.width, y: cell.contentView.frame.height)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 60
+    }
   
     func tableView(_ tableView: UITableView,
        didSelectRowAt indexPath: IndexPath
