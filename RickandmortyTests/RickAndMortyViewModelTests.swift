@@ -50,7 +50,20 @@ final class RickAndMortyViewModelTests: XCTestCase {
         service.deliveredQues.sync {
             XCTAssertEqual(self.viewModel.model, self.service.sampleCharacters)
         }
-       
+    }
+    
+    func test_filteredCharactersRecievedCorrectly() {
+        viewModel.viewDidLoad()
+        viewModel.applyButtonTapped(name: "name", gender: "male", status: "alive", species: "")
+        service.deliveredQues.sync {
+            self.viewModel.model.forEach {
+                XCTAssertEqual($0.name, "name")
+                XCTAssertEqual($0.gender, "male")
+                XCTAssertEqual($0.status, "alive")
+                XCTAssertEqual($0.species, "")
+            }
+          
+        }
     }
 
 }

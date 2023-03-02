@@ -30,7 +30,10 @@ class MockRickAndMortyService: RickanMortyServiceProtocol {
     }
     
     func getFilteredCharacter(name: String, gender: String, status: String, species: String, completion: @escaping (Result<[Rickandmorty.RickanMortyModelResult], Rickandmorty.ErrorMessage>) -> Void) {
-        
+        let correctCharacters = sampleCharacters.filter{$0.name == name && $0.gender == gender && $0.status == status && $0.species == species}
+        deliveredQues.async {
+            completion(.success(correctCharacters))
+        }
     }
     
     
