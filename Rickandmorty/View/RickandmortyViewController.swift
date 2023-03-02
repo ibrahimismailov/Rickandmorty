@@ -19,7 +19,7 @@ protocol RickanMortyViewInterface: AnyObject {
 
 class RickandmortyViewController: UIViewController {
     
-    private lazy var viewModel = RickandmortyViewModel()
+    private lazy var viewModel = RickandmortyViewModel(view: self, service: RickanMortyService.shared)
     private lazy var searchBar: UISearchController  = UISearchController()
     private  var gendertText: String = ""
     private var statusText: String = ""

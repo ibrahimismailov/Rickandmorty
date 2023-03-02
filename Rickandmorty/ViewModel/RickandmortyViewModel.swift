@@ -20,9 +20,16 @@ protocol RickandmortyViewModelProtocol {
 
 final class RickandmortyViewModel {
     
+    internal init(view: RickanMortyViewInterface?, service: RickanMortyServiceProtocol) {
+        self.view = view
+        self.service = service
+    }
+    
+    
   weak  var view: RickanMortyViewInterface?
   lazy var model = [RickanMortyModelResult]()
   lazy var popUp = FilterPopUp()
+  let service: RickanMortyServiceProtocol
  
   private lazy var page = 1...42
   private var shouldNeddToCallPulledDownRefreshControll: Bool = false
@@ -30,7 +37,7 @@ final class RickandmortyViewModel {
     func fetchCharacters() {
         guard let page = page.randomElement() else {return}
         view?.beginRefreing()
-        RickanMortyService.shared.fetchCharacters(page: page) { [weak self] model in
+        service.fetchCharacters(page: page) { [weak self] model in
             switch model {
             case.success(let model):
                 self?.model = model
@@ -43,6 +50,7 @@ final class RickandmortyViewModel {
             }
         }
     }
+    
     func callCharacterByName(_ searchBar: UISearchBar, textDidChange searchText: String){
                 RickanMortyService.shared.searchCharacterByName(page: 1, searchText: searchText) {[weak self] result in
                     switch result{
@@ -59,24 +67,7 @@ final class RickandmortyViewModel {
                     }
                 }
             }
-//    func callCharacterFilter(gender: String, status: String) {
-//        RickanMortyService.shared.getFilteredCharacter(
-//        gender: gender,
-//        status: status
-//        ){
-//        [weak self] result in
-//        switch result {
-//        case .success(let success):
-//        self?.model = success
-//        DispatchQueue.main.async {
-//        self?.view?.reloadData()
-//        }
-//        case .failure(let error):
-//        print(error.localizedDescription)
-//        }
-//        }
-//
-//    }
+
     func callCharacterWithFilter(name: String, gender: String,status: String,species: String) {
         RickanMortyService.shared.getFilteredCharacter(name: name, gender: gender, status: status, species: species) {[weak self] result in
             switch result {
@@ -91,6 +82,7 @@ final class RickandmortyViewModel {
         }
     }
 }
+
 extension RickandmortyViewModel: RickandmortyViewModelProtocol {
     func viewDidLoad() {
         
@@ -98,9 +90,11 @@ extension RickandmortyViewModel: RickandmortyViewModelProtocol {
         view?.prepareSearchBar()
         fetchCharacters()
     }
+    
     func viewWillAppear() {
         view?.prepareRefreshControll()
     }
+    
     func pulledDownRefreshControl() {
         guard let isDragging = view?.isDragging, !isDragging else {
             shouldNeddToCallPulledDownRefreshControll = true
@@ -108,24 +102,27 @@ extension RickandmortyViewModel: RickandmortyViewModelProtocol {
         }
         fetchCharacters()
     }
+    
     func scrollViewDidEndDecelerating() {
         guard shouldNeddToCallPulledDownRefreshControll else {return}
         shouldNeddToCallPulledDownRefreshControll = false
         fetchCharacters()
     }
+    
     func didSelectItemAt(at indexPath: IndexPath) {
         let vc = DetailViewController()
         vc.configureViews(with: model[indexPath.row])
         view?.goToDetail(to: vc, animated: true)
 
     }
+    
     func callCharacters(searchBar: UISearchBar,textDidChange: String) {
         callCharacterByName(searchBar, textDidChange: textDidChange)
     }
+    
     func applyButtonTapped(name: String, gender: String,status: String,species: String) {
         callCharacterWithFilter(name: name, gender: gender, status: status, species: species)
         popUp.removeFromSuperview()
     }
-    
 }
 
