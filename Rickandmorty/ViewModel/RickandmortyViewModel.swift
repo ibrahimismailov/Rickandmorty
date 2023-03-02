@@ -52,7 +52,7 @@ final class RickandmortyViewModel {
     }
     
     func callCharacterByName(_ searchBar: UISearchBar, textDidChange searchText: String){
-                RickanMortyService.shared.searchCharacterByName(page: 1, searchText: searchText) {[weak self] result in
+        service.searchCharacterByName(page: page.randomElement()!, searchText: searchText) {[weak self] result in
                     switch result{
                     case .success(let characters):
                         self?.model = characters
@@ -69,7 +69,7 @@ final class RickandmortyViewModel {
             }
 
     func callCharacterWithFilter(name: String, gender: String,status: String,species: String) {
-        RickanMortyService.shared.getFilteredCharacter(name: name, gender: gender, status: status, species: species) {[weak self] result in
+        service.getFilteredCharacter(name: name, gender: gender, status: status, species: species) {[weak self] result in
             switch result {
                 case .success(let success):
                 self?.model = success

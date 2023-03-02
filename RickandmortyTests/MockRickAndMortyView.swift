@@ -10,13 +10,16 @@ import UIKit
 
 class MockRickAndMortyView: RickanMortyViewInterface {
     var isDragging: Bool = false
+    var tableViewPrepared = false
+    var searchBarPrepared = false
     
     func prepareTableView() {
+        tableViewPrepared = true
         
     }
     
     func prepareSearchBar() {
-        
+        searchBarPrepared = true
     }
     
     func prepareRefreshControll() {
